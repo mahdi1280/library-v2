@@ -1,12 +1,8 @@
 package com.example.library.model.dto;
 
-import com.example.library.model.entity.Category;
-import com.example.library.model.entity.User;
-
 public class BookDto {
     private String name;
-    private User user;
-    private Category category;
+    private Long categoryId;
 
     public String getName() {
         return name;
@@ -16,19 +12,11 @@ public class BookDto {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }
