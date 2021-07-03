@@ -43,7 +43,7 @@ public class Book {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "categoryBook", joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "cagtegory_id"))
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     public Collection<Category> getCategories() {
         return categories;
     }

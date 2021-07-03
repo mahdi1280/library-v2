@@ -1,6 +1,7 @@
 package com.example.library.service;
 
 import com.example.library.Repository.BookRepo;
+import com.example.library.Repository.CategoryRepo;
 import com.example.library.model.dto.BookDto;
 import com.example.library.model.entity.Book;
 import org.springframework.data.domain.Page;
@@ -12,14 +13,16 @@ import java.util.List;
 @Service
 public class BookService {
     private final BookRepo bookRepo;
-
-    public BookService(BookRepo bookRepo) {
+    private final CategoryRepo categoryRepo;
+    public BookService(BookRepo bookRepo,CategoryRepo categoryRepo) {
         this.bookRepo = bookRepo;
+        this.categoryRepo = categoryRepo;
     }
     public Book add(BookDto bookDto){
         Book book = new Book();
         book.setName(bookDto.getName());
-        book.getCategories().add(bookDto.getCategory());
+        System.out.println(categoryRepo.findById(1L).orElse(null));
+        book.getCategories().add(categoryRepo.findById(1L).get());
         return bookRepo.save(book);
     }
     public Book update(Long id,BookDto bookDto){
@@ -27,7 +30,7 @@ public class BookService {
        if(book!= null){
            book.setName(bookDto.getName());
            book.getCategories().clear();
-           book.getCategories().add(bookDto.getCategory());
+           book.getCategories().add(categoryRepo.getById(bookDto.getCategoryId()));
        }
        return null;
     }
@@ -35,5 +38,4 @@ public class BookService {
        Page<Book> books= bookRepo.findAll(pageable);
        return books;
     }
-    
 }
