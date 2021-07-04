@@ -22,14 +22,14 @@ public class UserController {
         return userService.add(userDto);
     }
 
-    @GetMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public User update(@RequestBody UserDto userDto, @PathVariable Long id) {
 
         return userService.update(id, userDto);
 
     }
 
-    @PostMapping("/show")
+    @GetMapping("/show")
 
     public Page<User> show(Pageable pageable) {
         return userService.show(pageable);
