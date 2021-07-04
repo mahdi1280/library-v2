@@ -1,6 +1,7 @@
 package com.example.library.service;
 
 import com.example.library.Repository.CategoryRepo;
+import com.example.library.model.dto.CategoryDto;
 import com.example.library.model.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,9 @@ public class CategoryService {
         this.categoryRepo = categoryRepo;
     }
 
-    public Category add(Category category) {
+    public Category add(CategoryDto categoryDto) {
+        Category category = new Category();
+        category.setName(categoryDto.getName());
         return categoryRepo.save(category);
     }
 
@@ -23,8 +26,13 @@ public class CategoryService {
         return categoryRepo.findAll(pageable);
     }
 
-    public Category update(Category category) {
-        return categoryRepo.save(category);
+    public Category update(Long id, CategoryDto categoryDto) {
+        Category category1=categoryRepo.findById(id).orElse(null);
+        if(category1 != null){
+            category1.setName(categoryDto.getName());
+            return categoryRepo.save(category1);
+        }
+        return  null;
     }
 
 

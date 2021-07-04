@@ -1,5 +1,6 @@
 package com.example.library.controller;
 
+import com.example.library.model.dto.CategoryDto;
 import com.example.library.model.entity.Category;
 import com.example.library.service.CategoryService;
 import org.springframework.data.domain.Page;
@@ -17,13 +18,13 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public Category add(Category category) {
-        return categoryService.add(category);
+    public Category add(@RequestBody CategoryDto categoryDto) {
+        return categoryService.add(categoryDto);
     }
 
     @PostMapping("/update/{id}")
-    public Category update(@RequestBody Category category, @PathVariable Long id) {
-        return categoryService.update(category, id);
+    public Category update(@RequestBody CategoryDto categoryDto, @PathVariable Long id) {
+        return categoryService.update(id, categoryDto);
     }
 
     @GetMapping("/show")

@@ -7,24 +7,24 @@ import java.time.LocalDate;
 
 public class ReservDto {
 
-    private User user;
-    private Book book;
+    private Long user;
+    private Long book;
     private LocalDate reservDate;
     private LocalDate referenceBook;
 
-    public User getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
-    public Book getBook() {
+    public Long getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(Long book) {
         this.book = book;
     }
 
