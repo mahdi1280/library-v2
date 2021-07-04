@@ -22,12 +22,12 @@ public class ReservController {
         return reservService.add(reservDto);
     }
 
-    @GetMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public Reserv update(@PathVariable Long id, ReservDto reservDto) {
         return null;
     }
 
-    @PostMapping("/show")
+    @GetMapping("/show")
     public Page<Reserv> show(Pageable pageable) {
         return reservService.show(pageable);
     }
