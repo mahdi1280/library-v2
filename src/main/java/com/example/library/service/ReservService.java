@@ -4,13 +4,11 @@ import com.example.library.Repository.BookRepo;
 import com.example.library.Repository.ReservRepo;
 import com.example.library.Repository.UserRepo;
 import com.example.library.model.dto.ReservDto;
+import com.example.library.model.entity.Book;
 import com.example.library.model.entity.Reserv;
-import com.example.library.model.entity.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ReservService {
@@ -18,6 +16,7 @@ public class ReservService {
     private final ReservRepo reservRepo;
     private final BookRepo bookRepo;
     private final UserRepo userRepo;
+    private int bookCount;
 
     public ReservService(ReservRepo reservRepo, BookRepo bookRepo, UserRepo userRepo) {
         this.reservRepo = reservRepo;
@@ -25,20 +24,44 @@ public class ReservService {
         this.userRepo = userRepo;
     }
 
-    public Reserv add(ReservDto reservDto){
+    public Reserv add(ReservDto reservDto) {
         Reserv reserv = new Reserv();
-        reserv.setUser(userRepo.findById(reservDto.getUser()).get());
-        reserv.setBook(bookRepo.findById(reservDto.getBook()).get());
+        Book book = bookRepo.findById(reservDto.getBook()).orElse(null);
+        reserv.setUser(userRepo.findById(reservDto.getUser()).orElse(null));
+        reserv.setBook(book);
         reserv.setReservDate(reservDto.getReservDate());
         reserv.setReferenceBook(reservDto.getReferenceBook());
-        return reservRepo.save(reserv);
 
+        if (book.getCount() >= 1) {
+            bookCount = Objects.requireNonNull(book).getCount() - 1;
+            book.setCount(bookCount);
+            bookRepo.save(book);
+            return reservRepo.save(reserv);
+        } else {
+            book.setStatus(false);
+        }
+        return null;
     }
 
     public Reserv show() {
 
-       Reserv reservs = reservRepo.findById(1L).get();
+        Reserv reservs = reservRepo.findById(1L).get();
         return reservs;
+    }
+
+    public Reserv returnBook(ReservDto reservDto, Long id) {
+        Reserv reserv = reservRepo.findById(id).orElse(null);
+//      reserv.setBook(bookRepo.findById(id).orElse(null));
+        Book book = bookRepo.findById(reserv.getBook().getId()).orElse(null);
+        int bookReturnCount = Objects.requireNonNull(book).getCount();
+//        bookCount = Objects.requireNonNull(bookRepo.findById(id).orElse(null)).getCount();
+        book.setCount(book.getCount() + 1);
+        book.setStatus(true);
+
+        bookRepo.save(book);
+        reserv.setReservStatus(false);
+
+        return reservRepo.save(reserv);
     }
 
 }

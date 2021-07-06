@@ -35,6 +35,10 @@ public class ReservController {
         return null;
     }
 
+    @PostMapping("/return/{id}")
+     public Reserv returnBook(@PathVariable Long id,@RequestBody ReservDto reservDto){
+        return reservService.returnBook(reservDto,id);
+    }
     @GetMapping("/show")
     public Long show() {
         return 1L;

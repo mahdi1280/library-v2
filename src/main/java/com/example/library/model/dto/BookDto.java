@@ -3,6 +3,15 @@ package com.example.library.model.dto;
 public class BookDto {
     private String name;
     private Long categoryId;
+    private int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public String getName() {
         return name;

@@ -34,9 +34,12 @@ public class UserService {
 
     public User add(UserDto userDto) {
         User user = new User();
-        user.setName(userDto.getName());
-        user.setCodeMeli(userDto.getCodeMeli());
         user.setRole(userDto.getRole());
-        return userRepo.save(user);
+        if(userDto.getRole()==1) {
+            user.setName(userDto.getName());
+            user.setCodeMeli(userDto.getCodeMeli());
+            return userRepo.save(user);
+        }
+        return null;
     }
 }

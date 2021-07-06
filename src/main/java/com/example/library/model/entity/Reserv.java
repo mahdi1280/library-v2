@@ -2,6 +2,8 @@ package com.example.library.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +14,16 @@ public class Reserv {
     private Long id;
     private User user;
     private Book book;
+    private boolean reservStatus=true;
+    @Column(columnDefinition="boolean default true")
+    public boolean isReservStatus() {
+        return reservStatus;
+    }
+
+    public void setReservStatus(boolean reservStatus) {
+        this.reservStatus = reservStatus;
+    }
+
     private LocalDate reservDate;
     private LocalDate referenceBook;
 

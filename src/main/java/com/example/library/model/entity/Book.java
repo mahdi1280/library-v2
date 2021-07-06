@@ -13,6 +13,13 @@ import java.util.Collection;
 public class Book {
     private Long id;
     private String name;
+    private boolean status;
+
+
+
+    private int count;
+
+
     private Collection<User> users = new ArrayList<>();
     private Collection<Category> categories = new ArrayList<>();
 
@@ -54,5 +61,21 @@ public class Book {
 
     public void setCategories(Collection<Category> categories) {
         this.categories = categories;
+    }
+    @Column
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    @Column
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
